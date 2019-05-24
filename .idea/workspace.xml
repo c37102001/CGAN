@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d518cf9c-6eec-4531-a539-57c111ed9f03" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/predict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ACGAN.py" beforeDir="false" afterPath="$PROJECT_DIR$/ACGAN.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/create_dateset.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_dateset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,51 +24,75 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="14" />
+          <entry key="py" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="14" />
+          <entry key="Python" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="9" />
-          <entry key="py" value="3969" />
+          <entry key="py" value="5602" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="9" />
-          <entry key="Python" value="3969" />
+          <entry key="Python" value="5602" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ACGAN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="62">
-              <caret line="65" column="24" selection-start-line="65" selection-start-column="24" selection-end-line="65" selection-end-column="24" />
+            <state relative-caret-position="317">
+              <caret line="223" column="85" lean-forward="true" selection-start-line="223" selection-start-column="85" selection-end-line="223" selection-end-column="85" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
-                <marker date="1558678699975" expanded="true" signature="7563:10542" ph="..." />
+                <marker date="1558699971344" expanded="true" signature="8215:11700" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/create_dateset.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="104">
-              <caret line="24" column="19" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
+            <state relative-caret-position="162">
+              <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
-                <marker date="1558688550500" expanded="true" signature="427:1843" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tutorial/ACGAN_tutorial.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3142">
+              <caret line="192" column="34" selection-start-line="192" selection-start-column="34" selection-end-line="192" selection-end-column="34" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/create_dateset.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="224">
+              <caret line="33" column="39" selection-start-line="33" selection-start-column="39" selection-end-line="33" selection-end-column="39" />
+              <folding>
+                <element signature="e#0#12#0" expanded="true" />
+                <marker date="1558693823781" expanded="true" signature="427:1614" ph="..." />
               </folding>
             </state>
           </provider>
@@ -86,7 +109,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>n_classes</find>
       <find>n_cpu</find>
       <find>ipdb</find>
       <find>opt.batch_size</find>
@@ -95,6 +117,11 @@
       <find>save_image</find>
       <find>ipd</find>
       <find>sample_interval</find>
+      <find>n_classes</find>
+      <find>set_</find>
+      <find>n_row</find>
+      <find>channel</find>
+      <find>noise</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -105,11 +132,11 @@
       <list>
         <option value="$PROJECT_DIR$/tutorial/ACGAN.py" />
         <option value="$PROJECT_DIR$/tutorial/test.py" />
-        <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/tutorial/ACGAN_tutorial.py" />
-        <option value="$PROJECT_DIR$/ACGAN.py" />
         <option value="$PROJECT_DIR$/predict.py" />
         <option value="$PROJECT_DIR$/create_dateset.py" />
+        <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/ACGAN.py" />
       </list>
     </option>
   </component>
@@ -119,7 +146,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="15" />
     <option name="y" value="30" />
     <option name="width" value="1890" />
@@ -171,7 +198,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../HW1" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../HW2" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="Errors" />
@@ -207,10 +234,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="7" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15683104" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15683104" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -224,7 +250,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="File Transfer" order="9" weight="0.3291815" />
       <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" x="0" y="11" width="1281" height="658" id="Terminal" order="11" type="WINDOWED" visible="true" weight="0.3291815" />
+      <window_info active="true" anchor="bottom" x="0" y="23" width="1281" height="658" id="Terminal" order="11" type="WINDOWED" visible="true" weight="0.3291815" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="13" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -242,13 +268,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FID_evaluation/run_fid.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="321">
@@ -268,20 +287,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tutorial/ACGAN_tutorial.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2710">
-          <caret line="59" column="50" selection-start-line="59" selection-start-column="50" selection-end-line="59" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/predict.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
+        <state relative-caret-position="270">
+          <caret line="36" column="123" selection-start-line="36" selection-start-column="101" selection-end-line="36" selection-end-column="123" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
             <marker date="1558678736955" expanded="true" signature="1018:1023" ph="..." />
@@ -289,24 +298,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ACGAN.py">
+    <entry file="file://$PROJECT_DIR$/create_dateset.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
-          <caret line="65" column="24" selection-start-line="65" selection-start-column="24" selection-end-line="65" selection-end-column="24" />
+        <state relative-caret-position="224">
+          <caret line="33" column="39" selection-start-line="33" selection-start-column="39" selection-end-line="33" selection-end-column="39" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
-            <marker date="1558678699975" expanded="true" signature="7563:10542" ph="..." />
+            <element signature="e#0#12#0" expanded="true" />
+            <marker date="1558693823781" expanded="true" signature="427:1614" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/create_dateset.py">
+    <entry file="file://$PROJECT_DIR$/tutorial/ACGAN_tutorial.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="24" column="19" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
+        <state relative-caret-position="3142">
+          <caret line="192" column="34" selection-start-line="192" selection-start-column="34" selection-end-line="192" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
-            <marker date="1558688550500" expanded="true" signature="427:1843" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ACGAN.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="223" column="85" lean-forward="true" selection-start-line="223" selection-start-column="85" selection-end-line="223" selection-end-column="85" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+            <marker date="1558699971344" expanded="true" signature="8215:11700" ph="..." />
           </folding>
         </state>
       </provider>

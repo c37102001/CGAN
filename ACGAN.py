@@ -1,4 +1,5 @@
 import argparse
+import sys
 import os
 import numpy as np
 import math
@@ -12,6 +13,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch
 import ipdb
+from itertools import product
 
 from create_dateset import CartoonDataset
 
@@ -59,7 +61,10 @@ class Generator(nn.Module):
     def __init__(self):
         super(Generator, self).__init__()
 
-        self.label_emb = nn.Embedding(opt.n_classes, opt.latent_dim)    # (10, 100)
+        self.hair_emb = nn.Embedding(6, opt.latent_dim // 4)
+        self.eyes_emb = nn.Embedding(4, opt.latent_dim // 4)
+        self.face_emb = nn.Embedding(3, opt.latent_dim // 4)
+        self.glasses_emb = nn.Embedding(2, opt.latent_dim // 4)
 
         self.init_size = opt.img_size // 4  # Initial size before upsampling = 8
         self.l1 = nn.Sequential(
@@ -81,7 +86,12 @@ class Generator(nn.Module):
         )
 
     def forward(self, noise, labels):                               # (64, 100), (64)
-        gen_input = torch.mul(self.label_emb(labels), noise)        # (64, 100)
+        hair = self.hair_emb(labels[:, 0])                          # (64, 100)
+        eyes = self.eyes_emb(labels[:, 1])
+        face = self.face_emb(labels[:, 2])
+        glasses = self.glasses_emb(labels[:, 3])
+        gen_input = torch.cat((hair, eyes, face, glasses), 1) * noise        # (64, 100)
+
         out = self.l1(gen_input)                                    # (64, 128*8*8)
         out = out.view(out.shape[0], 128, self.init_size, self.init_size)       # (64, 128, 8, 8)
         img = self.conv_blocks(out)                                 # (64, 1, 32, 32)
@@ -111,13 +121,13 @@ class Discriminator(nn.Module):
 
         # Output layers
         self.adv_layer = nn.Sequential(nn.Linear(128 * ds_size ** 2, 1), nn.Sigmoid())
-        self.aux_layer = nn.Sequential(nn.Linear(128 * ds_size ** 2, opt.n_classes), nn.Softmax())
+        self.aux_layer = nn.Sequential(nn.Linear(128 * ds_size ** 2, 4))
 
     def forward(self, img):                         # (64, 1, 32, 32)
         out = self.conv_blocks(img)                 # (64, 128, 2, 2)
         out = out.view(out.shape[0], -1)            # (64, 128*2*2)
         validity = self.adv_layer(out)              # (64, 1)
-        label = self.aux_layer(out)                 # (64, 10)
+        label = self.aux_layer(out)                 # (64, 4)
 
         return validity, label
 
@@ -127,8 +137,14 @@ def sample_image(n_row, batches_done, generator):
     # Sample noise
     z = FloatTensor(np.random.normal(0, 1, (n_row ** 2, opt.latent_dim)))
     # Get labels ranging from 0 to n_classes for n rows
-    labels = np.array([num for num in range(n_row ** 2)])
-    labels = LongTensor(labels)
+    # labels = np.array([num for num in range(n_row ** 2)])
+    # labels = LongTensor(labels)
+
+    hair = torch.arange(0, 6)
+    eyes = torch.arange(0, 4)
+    face = torch.arange(0, 3)
+    glasses = torch.arange(0, 2)
+    labels = LongTensor([label for label in product(hair, eyes, face, glasses)])
     gen_imgs = generator.forward(z, labels)
     save_image(gen_imgs.data, "images/%d.png" % batches_done, nrow=n_row)
 
@@ -142,7 +158,8 @@ def save(save_path, generator, discriminator):
 def main():
     # Loss functions
     adversarial_loss = torch.nn.BCELoss()
-    auxiliary_loss = torch.nn.CrossEntropyLoss()
+    # auxiliary_loss = torch.nn.CrossEntropyLoss()
+    auxiliary_loss = torch.nn.L1Loss()
 
     # Initialize generator and discriminator
     generator = Generator()
@@ -171,8 +188,9 @@ def main():
 
     for epoch in range(opt.n_epochs):
         for i, (imgs, labels) in enumerate(dataloader):
+            labels = [*zip(*labels)]
 
-            # imgs: (64, 1, 32, 32), labels: (64)
+            # imgs: (64, 1, 32, 32), labels: (64, 4)
 
             batch_size = imgs.shape[0]  # 64
 
@@ -181,8 +199,8 @@ def main():
             fake = FloatTensor(batch_size, 1).fill_(0.0)  # (64, 1)
 
             # Configure input
-            real_imgs = imgs.type(FloatTensor)
-            labels = labels.type(LongTensor)
+            real_imgs = imgs.type(FloatTensor)      # (64, 3, 128, 128)
+            labels = LongTensor(labels)             # (64, 4)
 
             # -----------------
             #  Train Generator
@@ -192,15 +210,19 @@ def main():
 
             # Sample noise and labels as generator input
             noise = torch.randn(batch_size, opt.latent_dim).type(FloatTensor)  # (64, 100)
-            gen_labels = torch.randint(0, opt.n_classes, (batch_size,)).type(LongTensor)  # (64)
+            hair = torch.randint(0, 6, (batch_size, 1))
+            eyes = torch.randint(0, 4, (batch_size, 1))
+            face = torch.randint(0, 3, (batch_size, 1))
+            glasses = torch.randint(0, 2, (batch_size, 1))
+            gen_labels = torch.cat((hair, eyes, face, glasses), 1).type(LongTensor)  # (64, 4)
 
             # Generate a batch of images
             gen_imgs = generator.forward(noise, gen_labels)  # (64, 1, 32, 32)
 
             # Loss measures generator's ability to fool the discriminator
-            validity, pred_label = discriminator.forward(gen_imgs)  # (64, 1),  (64, 10)
-            g_loss = 0.5 * (adversarial_loss(validity, valid) + auxiliary_loss(pred_label, gen_labels))
-            #                                 (64,1)   (64,1)                   (64,10)       (64)
+            validity, pred_label = discriminator.forward(gen_imgs)  # (64, 1),  (64, 4)
+            g_loss = 0.5 * (adversarial_loss(validity, valid) + auxiliary_loss(pred_label, gen_labels.type(FloatTensor)))
+            #                                 (64,1)   (64,1)                   (64,4)       (64,4)
 
             g_loss.backward()
             optimizer_G.step()
@@ -210,14 +232,14 @@ def main():
             # ---------------------
 
             optimizer_D.zero_grad()
-
+            # ipdb.set_trace()
             # Loss for real images
             real_pred, real_aux = discriminator.forward(real_imgs)
-            d_real_loss = (adversarial_loss(real_pred, valid) + auxiliary_loss(real_aux, labels)) / 2
+            d_real_loss = (adversarial_loss(real_pred, valid) + auxiliary_loss(real_aux, labels.type(FloatTensor))) / 2
 
             # Loss for fake images
             fake_pred, fake_aux = discriminator.forward(gen_imgs.detach())
-            d_fake_loss = (adversarial_loss(fake_pred, fake) + auxiliary_loss(fake_aux, gen_labels)) / 2
+            d_fake_loss = (adversarial_loss(fake_pred, fake) + auxiliary_loss(fake_aux, gen_labels.type(FloatTensor))) / 2
 
             # Total discriminator loss
             d_loss = (d_real_loss + d_fake_loss) / 2
@@ -225,7 +247,9 @@ def main():
             # Calculate discriminator accuracy
             pred = np.concatenate([real_aux.data.cpu().numpy(), fake_aux.data.cpu().numpy()], axis=0)
             gt = np.concatenate([labels.data.cpu().numpy(), gen_labels.data.cpu().numpy()], axis=0)
-            d_acc = np.mean(np.argmax(pred, axis=1) == gt)
+            pred = np.around(pred)
+            gt = np.around(gt)
+            d_acc = np.mean(pred == gt)
 
             d_loss.backward()
             optimizer_D.step()
@@ -234,10 +258,13 @@ def main():
                     "[Epoch %d/%d] [Batch %d/%d] [D loss: %f, acc: %d%%] [G loss: %f]"
                     % (epoch, opt.n_epochs, i, len(dataloader), d_loss.item(), 100 * d_acc, g_loss.item())
                 )
-            if epoch % opt.sample_interval == 0 and i == 0:
-                sample_image(12, epoch, generator)
-                save(opt.save_path, generator, discriminator)
+
+        if epoch % opt.sample_interval == 0:
+            sample_image(12, epoch, generator)
+            save(opt.save_path, generator, discriminator)
 
 
 if __name__ == '__main__':
-    main()
+    with ipdb.launch_ipdb_on_exception():
+        sys.breakpointhook = ipdb.set_trace
+        main()
