@@ -19,7 +19,11 @@ class CartoonDataset(Dataset):
         self.label_list = []
         self.img_transform = image_transform
         with open(label_path, 'r') as f:
+            count = 0
             for line in f:
+                count += 1
+                if not count >= 3:
+                    continue
                 line = line.split()
                 if len(line) == 1:
                     self.total = int(line[0])

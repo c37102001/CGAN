@@ -1,0 +1,4 @@
+FID_evaluation/frozen_inception_v1_2015_12_05.tar.gz
+sample_test/sample_human_testing_labels.txt
+sample_test/sample_fid_testing_labels.txt
+FID_evaluation/real_activations.npy
