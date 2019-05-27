@@ -25,13 +25,7 @@ class CartoonDataset(Dataset):
                 if not count >= 3:
                     continue
                 line = line.split()
-                # img_name, img_label = line[0], [int(i) for i in (line[1:])]
-                img_name = line.pop(0)
-                hair = line[0:6].index('1')
-                eyes = line[6:10].index('1')
-                face = line[10:13].index('1')
-                glasses = line[13:15].index('1')
-                img_label = [hair, eyes, face, glasses]
+                img_name, img_label = line[0], [int(i) for i in (line[1:])]
                 self.img_list.append(os.path.join(img_path, img_name))
                 self.label_list.append(img_label)
 

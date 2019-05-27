@@ -4,8 +4,15 @@ import ipdb
 from itertools import product
 import numpy as np
 
-pred = np.array([[1.3, 2.3, 3.6], [2.1,3.4,4.5]])
-gt = np.array([[1, 2, 3], [3,4,5]])
 
-ipdb.set_trace()
-print(np.mean(pred == gt))
+SAMPLE_PATH = './sample_test/sample_human_testing_labels.txt'
+labels = []
+with open(SAMPLE_PATH, 'r') as f:
+    count = 0
+    for line in f:
+        count += 1
+        if count < 3 or count > 146:
+            continue
+        labels.append([torch.LongTensor([int(i)]) for i in line.split()])
+
+labels = torch.LongTensor(labels)
