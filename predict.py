@@ -2,7 +2,7 @@ import argparse
 import torch
 import numpy as np
 from torchvision.utils import save_image
-from ACGAN import Generator
+from train import Generator
 import ipdb
 
 cuda = True if torch.cuda.is_available() else False

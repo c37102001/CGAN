@@ -71,6 +71,7 @@ class Generator(nn.Module):
         )
 
     def forward(self, noise, labels):                               # (64, 100), (64)
+        ipdb.set_trace()
         gen_input = torch.mul(self.label_emb(labels), noise)        # (64, 100)
         out = self.l1(gen_input)                                    # (64, 128*8*8)
         out = out.view(out.shape[0], 128, self.init_size, self.init_size)       # (64, 128, 8, 8)
